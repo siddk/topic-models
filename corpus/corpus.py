@@ -24,6 +24,7 @@ class Corpus:
         :param docs: Dictionary mapping IDs to List of Words.
         """
         # Dictionary Mapping Document IDs to Document Names
+        self.raw = docs
         self.doc_ids = {doc_id: i for i, doc_id in enumerate(docs.keys())}
         self.id_map = {i: doc_id for doc_id, i in self.doc_ids.items()}
 
@@ -40,9 +41,9 @@ class Corpus:
 
         :return: List of lists representing entire corpus
         """
-        internal_rep = {}
-        for d in docs:
-            internal_rep[self.doc_ids[d]] = map(lambda x: self.vocab[x], docs[d])
+        internal_rep = []
+        for d in range(len(self.id_map)):
+            internal_rep.append(map(lambda x: self.vocab[x], docs[self.id_map[d]]))
         return internal_rep
 
 
