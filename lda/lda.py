@@ -28,10 +28,10 @@ class LDA:
         self.k, self.iterations, self.alpha, self.beta = k, iterations, alpha, beta
 
         # Count of number of times a word is assigned to a given topic -> indexed wt[topic][word_id]
-        self.wt = defaultdict(lambda: defaultdict(int))
+        self.wt = defaultdict(lambda: defaultdict(float))
 
         # Count of number of tokens in document assigned to each topic -> indexed dt[doc_id][topic]
-        self.dt = defaultdict(lambda: defaultdict(int))
+        self.dt = defaultdict(lambda: defaultdict(float))
 
         # Randomly assign each word in each document to a different topic
         self.assignments = self.random_init()
