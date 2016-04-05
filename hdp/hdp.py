@@ -17,16 +17,19 @@ import numpy as np
 
 
 class HDP:
-    def __init__(self, corpus, k=1, iterations=100, alpha=1.0, beta=0.1, gamma=1.5):
+    def __init__(self, corpus, alpha=1.0, beta=0.1, gamma=1.5, k=1, iterations=100):
         """
         Instantiate an HDP-LDA Topic Model with the given corpus.
 
         :param corpus: Corpus object containing documents and vocabulary for the given model.
-        :param k: Optional Number of Topics (default = 0).
-        :param iterations: Number of iterations of gibbs sampling to perform.
         :param alpha: Dirichlet Hyperparameter, determines prior for document distribution,
                       alpha = 1 implies a symmetric prior.
         :param beta: Dirichlet Hyperparameter, determines prior for word distributions given topics.
         :param gamma: Dirichlet Hyperparameter, determines Chinese Restaurant Prior for determining
                       number of topics.
+        :param k: Optional Number of Topics (default = 1).
+        :param iterations: Number of iterations of gibbs sampling to perform.
         """
+        self.corpus, self.docs, self.V = corpus, corpus.docs, len(corpus.vocab)
+        self.alpha, self.beta, self.gamma = alpha, beta, gamma
+
