@@ -6,14 +6,14 @@ several words. Has all the necessary attributes for the suite of topic models.
 """
 
 test_dict = {"Katniss": ['run', 'shoot', 'rescue', 'save'],
-             "Batman": ['save', 'fight', 'rescue', 'stop'],
-             "Harry": ['fly', 'fight', 'rescue', 'save'],
+             "Batman": ['shoot', 'run', 'rescue', 'save'],
+             "Harry": ['save', 'rescue', 'shoot', 'run'],
              "Voldemort": ['torture', 'scare', 'kill', 'capture'],
-             "Joker": ['torture', 'kill', 'capture', 'kidnap'],
-             "Snow": ['kill', 'torture', 'capture', 'laugh'],
+             "Joker": ['torture', 'kill', 'capture', 'scare'],
+             "Snow": ['kill', 'torture', 'capture', 'scare'],
              "Alfred": ['advise', 'support', 'console', 'teach'],
-             "Haymitch": ['support', 'console', 'teach', 'protect'],
-             "Dumbledore": ['rescue', 'protect', 'advise', 'support', 'teach']}
+             "Haymitch": ['support', 'console', 'teach', 'advise'],
+             "Dumbledore": ['console', 'advise', 'support', 'teach']}
 
 
 class Corpus:
@@ -46,6 +46,17 @@ class Corpus:
             internal_rep.append(map(lambda x: self.vocab[x], docs[self.id_map[d]]))
         return internal_rep
 
+class defaultdict(dict):
+    def __init__(self, v):
+        self.v = v
+        dict.__init__(self)
+
+    def __getitem__(self, k):
+        return dict.__getitem__(self, k) if k in self else self.v
+
+    def update(self, d):
+        dict.update(self, d)
+        return self
 
 if __name__ == "__main__":
     test_corpus = Corpus(test_dict)
